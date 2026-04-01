@@ -5,21 +5,21 @@
 class Felt < Formula
   desc "DAG-native task tracker. Markdown files with dependencies."
   homepage "https://github.com/cailmdaley/felt"
-  version "0.7.0"
+  version "1.0.0-rc1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v0.7.0/felt_Darwin_x86_64.tar.gz"
-      sha256 "28486c3820ad41c4e0346d3108764fb71ee3234655021779978f4bb85c830f9f"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.0-rc1/felt_Darwin_x86_64.tar.gz"
+      sha256 "62181c06d79c80b6f3e1ab0c4cad2edb94081f5157eaa2c631410888a76cb474"
 
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v0.7.0/felt_Darwin_arm64.tar.gz"
-      sha256 "a9470c2afd8051573117150d95bbf03183d19bff2d1d06c02dad51d7be57858f"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.0-rc1/felt_Darwin_arm64.tar.gz"
+      sha256 "f07cab6319d7d7bad479637e725bacff1492d96a832e73332281c6d331edbe57"
 
       define_method(:install) do
         bin.install "felt"
@@ -29,15 +29,15 @@ class Felt < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v0.7.0/felt_Linux_x86_64.tar.gz"
-      sha256 "b2f844e833a3e63a2f65bd4146b0c7e9ba4967e5a414e9ff4b3f4345ff2494d0"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.0-rc1/felt_Linux_x86_64.tar.gz"
+      sha256 "06bd58671928bba268bd8640cc17318ff5ec88532f55dbb5e85dab458706e357"
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v0.7.0/felt_Linux_arm64.tar.gz"
-      sha256 "6e2fbb87befcd20b7baf04b3758fcb9107231ca462f24fb3bd09a8f8fa0f13f7"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.0-rc1/felt_Linux_arm64.tar.gz"
+      sha256 "1988b5fd3901cacd7f26defc8243184af29d69c48809da5ad3490f0a89a7eec3"
       define_method(:install) do
         bin.install "felt"
       end
