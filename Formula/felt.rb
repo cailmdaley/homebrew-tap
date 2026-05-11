@@ -5,21 +5,21 @@
 class Felt < Formula
   desc "DAG-native task tracker. Markdown files with dependencies."
   homepage "https://github.com/cailmdaley/felt"
-  version "1.0.6"
+  version "1.0.7"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.6/felt_Darwin_x86_64.tar.gz"
-      sha256 "29d6ef3922c8497137e560e832b4114354736bba563a7d929368dfd8fb9c0344"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Darwin_x86_64.tar.gz"
+      sha256 "2dd96aef33bb4ebc03a7ce7eff4abeadf6bd581cb4f8cbd8d02b4beaad533e5c"
 
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.6/felt_Darwin_arm64.tar.gz"
-      sha256 "91554011d2e3eb268c3fc38c32f854706b521cc862ffe92a02cd56b470b8de3e"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Darwin_arm64.tar.gz"
+      sha256 "6bd4d338086ef56e3174c7b038e3c5b3bbe252a3c923083259db0686cf36eb8c"
 
       define_method(:install) do
         bin.install "felt"
@@ -29,15 +29,15 @@ class Felt < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.6/felt_Linux_x86_64.tar.gz"
-      sha256 "93f8792dda7e83be41781c0fa6082ad5e9e4a71993b871be0c5ec1c1982a8ca3"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Linux_x86_64.tar.gz"
+      sha256 "3b6774007760cd3d11eb490663e24d79d4be6ad6bcfc9a0d819bdc351aeb671d"
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.6/felt_Linux_arm64.tar.gz"
-      sha256 "09ece221447fe0846a612ef54e6fee602823474f26183a46240858ab779c4a7b"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Linux_arm64.tar.gz"
+      sha256 "22afc5a5e7402a0f23efac55e1a541d0b2f69b3c3730b18f3897ffd3c9574e7c"
       define_method(:install) do
         bin.install "felt"
       end
