@@ -5,21 +5,21 @@
 class Felt < Formula
   desc "DAG-native task tracker. Markdown files with dependencies."
   homepage "https://github.com/cailmdaley/felt"
-  version "1.0.7"
+  version "1.0.8"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Darwin_x86_64.tar.gz"
-      sha256 "2dd96aef33bb4ebc03a7ce7eff4abeadf6bd581cb4f8cbd8d02b4beaad533e5c"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.8/felt_Darwin_x86_64.tar.gz"
+      sha256 "0adbeb26467d65d56eadcb36eade3644c851f700b293464a75c5211dbe4f9ff4"
 
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Darwin_arm64.tar.gz"
-      sha256 "6bd4d338086ef56e3174c7b038e3c5b3bbe252a3c923083259db0686cf36eb8c"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.8/felt_Darwin_arm64.tar.gz"
+      sha256 "70008bed5ffa7a52607a2288c29bf7fb12b0dc4ffda9b66b119000ba782b2097"
 
       define_method(:install) do
         bin.install "felt"
@@ -29,18 +29,39 @@ class Felt < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Linux_x86_64.tar.gz"
-      sha256 "3b6774007760cd3d11eb490663e24d79d4be6ad6bcfc9a0d819bdc351aeb671d"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.8/felt_Linux_x86_64.tar.gz"
+      sha256 "accee0eec03b8d6f39619b6ee22d20af3732451c723fe9d45a8462a1c9ba7904"
       define_method(:install) do
         bin.install "felt"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.0.7/felt_Linux_arm64.tar.gz"
-      sha256 "22afc5a5e7402a0f23efac55e1a541d0b2f69b3c3730b18f3897ffd3c9574e7c"
+      url "https://github.com/cailmdaley/felt/releases/download/v1.0.8/felt_Linux_arm64.tar.gz"
+      sha256 "1a7ae3e9bc3a101d00250c1a2df69d0eb06fc3fccaddc975626867579df78047"
       define_method(:install) do
         bin.install "felt"
       end
+    end
+  end
+
+  def post_install
+    if which("claude")
+      system "#{bin}/felt", "setup", "claude"
+    end
+    # Only re-run `felt setup codex` for users who already have Codex
+    # integration installed — never silently install Codex hooks for
+    # users who didn't ask for them. The detection mirrors the binary's
+    # own feltCodexInstalled(): plugin entry in config.toml (1.0.8+) or
+    # legacy session.sh reference in hooks.json (pre-1.0.8).
+    codex_config = "#{ENV["HOME"]}/.codex/config.toml"
+    codex_hooks = "#{ENV["HOME"]}/.codex/hooks.json"
+    # TOML quotes keys with single or double quotes depending on the
+    # writer; substring-match the plugin ref instead of the full header
+    # so either form is detected.
+    codex_installed = (File.exist?(codex_config) && File.read(codex_config).include?("felt@cailmdaley-felt")) ||
+                     (File.exist?(codex_hooks) && File.read(codex_hooks).include?("/hooks/session.sh"))
+    if codex_installed && which("codex")
+      system "#{bin}/felt", "setup", "codex"
     end
   end
 
