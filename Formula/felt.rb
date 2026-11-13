@@ -5,41 +5,45 @@
 class Felt < Formula
   desc "Markdown-native fiber tracker and autonomous work orchestrator."
   homepage "https://github.com/cailmdaley/felt"
-  version "1.1.0"
+  version "2.0.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.1.0/felt_Darwin_x86_64.tar.gz"
-      sha256 "15a8d2c11526dc6f0e657b091cf5bd82006778ef9ac2b1e9071d03204a77a44b"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_x86_64.tar.gz"
+      sha256 "f51301e504a028c0f027432f24a7f08c4277a4807a0948066b1d0961eceaf108"
 
       define_method(:install) do
         bin.install "felt"
+        bin.install "shuttle"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.1.0/felt_Darwin_arm64.tar.gz"
-      sha256 "eae43a2bc3a5e4bbeffaf46bfba87de75af10b50e6d287b7af550fd6713e5f16"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_arm64.tar.gz"
+      sha256 "05906a5d0e8ef4315b7853b0f4036275e8615ac5e9188b1b5303c74307413bbd"
 
       define_method(:install) do
         bin.install "felt"
+        bin.install "shuttle"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.1.0/felt_Linux_x86_64.tar.gz"
-      sha256 "be156f837a9f60b72aa6a3f5b8fcce7ed644f15dd6d37a94dee28d8e68155238"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_x86_64.tar.gz"
+      sha256 "17afd91e3d06725f1f8cd9395c78db5abedc524b12120a960d19047e95c23a23"
       define_method(:install) do
         bin.install "felt"
+        bin.install "shuttle"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v1.1.0/felt_Linux_arm64.tar.gz"
-      sha256 "44ca6be8eebb210423848158454f2b2c87bd32cf0ae116b76e91522fc55f695e"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_arm64.tar.gz"
+      sha256 "dafa1c1b558b58271b9309f4d162b037b3a5a801f8199bfc46706dfac765f91c"
       define_method(:install) do
         bin.install "felt"
+        bin.install "shuttle"
       end
     end
   end
@@ -51,8 +55,8 @@ class Felt < Formula
     # Only re-run `felt setup codex` for users who already have Codex
     # integration installed — never silently install Codex hooks for
     # users who didn't ask for them. The detection mirrors the binary's
-    # own feltCodexInstalled(): plugin entry in config.toml (1.0.8+) or
-    # legacy session.sh reference in hooks.json (pre-1.0.8).
+    # own feltCodexInstalled(): the plugin entry in config.toml, or a direct
+    # session.sh reference in hooks.json from a pre-plugin install.
     codex_config = "#{ENV["HOME"]}/.codex/config.toml"
     codex_hooks = "#{ENV["HOME"]}/.codex/hooks.json"
     # TOML quotes keys with single or double quotes depending on the
@@ -75,5 +79,6 @@ class Felt < Formula
 
   test do
     system "#{bin}/felt", "--help"
+    system "#{bin}/shuttle", "--help"
   end
 end
