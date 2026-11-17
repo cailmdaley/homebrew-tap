@@ -5,13 +5,13 @@
 class Felt < Formula
   desc "Markdown-native fiber tracker and autonomous work orchestrator."
   homepage "https://github.com/cailmdaley/felt"
-  version "3.0.0"
+  version "2.0.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v3.0.0/felt_Darwin_x86_64.tar.gz"
-      sha256 "13aff4df180555453615e6cacd8156de9d732c52c8c4e340ccd7cc367fb32066"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_x86_64.tar.gz"
+      sha256 "f51301e504a028c0f027432f24a7f08c4277a4807a0948066b1d0961eceaf108"
 
       define_method(:install) do
         bin.install "felt"
@@ -19,8 +19,8 @@ class Felt < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v3.0.0/felt_Darwin_arm64.tar.gz"
-      sha256 "08db9551b3d53d9398806ed1a2442f7a5761ccf732f52d5911166f8f971fb501"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_arm64.tar.gz"
+      sha256 "05906a5d0e8ef4315b7853b0f4036275e8615ac5e9188b1b5303c74307413bbd"
 
       define_method(:install) do
         bin.install "felt"
@@ -31,16 +31,16 @@ class Felt < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v3.0.0/felt_Linux_x86_64.tar.gz"
-      sha256 "804fc3ce40ff65e736f23c452d0f12393f315382aaccd4b21f42bcdff732e6ec"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_x86_64.tar.gz"
+      sha256 "17afd91e3d06725f1f8cd9395c78db5abedc524b12120a960d19047e95c23a23"
       define_method(:install) do
         bin.install "felt"
         bin.install "shuttle"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v3.0.0/felt_Linux_arm64.tar.gz"
-      sha256 "088703800287feab552d15ac69ac38d97ea283650de3e1863bb23b60430463fb"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_arm64.tar.gz"
+      sha256 "dafa1c1b558b58271b9309f4d162b037b3a5a801f8199bfc46706dfac765f91c"
       define_method(:install) do
         bin.install "felt"
         bin.install "shuttle"
