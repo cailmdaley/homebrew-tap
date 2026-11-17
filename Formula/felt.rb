@@ -5,13 +5,13 @@
 class Felt < Formula
   desc "Markdown-native fiber tracker and autonomous work orchestrator."
   homepage "https://github.com/cailmdaley/felt"
-  version "2.0.0"
+  version "2.1.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_x86_64.tar.gz"
-      sha256 "f51301e504a028c0f027432f24a7f08c4277a4807a0948066b1d0961eceaf108"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.1.0/felt_Darwin_x86_64.tar.gz"
+      sha256 "c41a28d73c2a2bdb28bbf28695676e2b91ca7cfce88fd56d8e1f83baa45bb6f4"
 
       define_method(:install) do
         bin.install "felt"
@@ -19,8 +19,8 @@ class Felt < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Darwin_arm64.tar.gz"
-      sha256 "05906a5d0e8ef4315b7853b0f4036275e8615ac5e9188b1b5303c74307413bbd"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.1.0/felt_Darwin_arm64.tar.gz"
+      sha256 "82f14e4f749ce1edbbc9cc4b6b63065076b31637a87ca4d5be93c412de2aee45"
 
       define_method(:install) do
         bin.install "felt"
@@ -31,16 +31,16 @@ class Felt < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_x86_64.tar.gz"
-      sha256 "17afd91e3d06725f1f8cd9395c78db5abedc524b12120a960d19047e95c23a23"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.1.0/felt_Linux_x86_64.tar.gz"
+      sha256 "2e1f63b7446ec452e07e898fbeeacbbdb9834c990a8fe6582eeb53426824a4c9"
       define_method(:install) do
         bin.install "felt"
         bin.install "shuttle"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/cailmdaley/felt/releases/download/v2.0.0/felt_Linux_arm64.tar.gz"
-      sha256 "dafa1c1b558b58271b9309f4d162b037b3a5a801f8199bfc46706dfac765f91c"
+      url "https://github.com/cailmdaley/felt/releases/download/v2.1.0/felt_Linux_arm64.tar.gz"
+      sha256 "1c49c86c89907220524c40a492f0197995d4046dc435ed9536ffd2b1daab7cba"
       define_method(:install) do
         bin.install "felt"
         bin.install "shuttle"
@@ -75,6 +75,12 @@ class Felt < Formula
     if pi_installed && which("pi")
       system "#{bin}/felt", "setup", "pi"
     end
+    # Say when this host's Shuttle daemon differs from the new CLIs, as
+    # felt update does. Formula#system would log the notice out of sight
+    # and raise on a failure; Utils.popen_read returns the output whatever
+    # the exit, and opoo shows it.
+    daemon_notice = Utils.popen_read("#{bin}/shuttle", "daemon", "check").strip
+    opoo daemon_notice unless daemon_notice.empty?
   end
 
   test do
